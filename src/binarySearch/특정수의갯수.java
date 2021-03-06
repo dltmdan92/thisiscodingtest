@@ -12,7 +12,7 @@ public class 특정수의갯수 {
     static int currentHighVal;
     static int firstIdx;
     static int lastIdx = 0;
-    static int n = 0;
+    static int n = 2;
 
     public static void main(String[] args) {
         int[] nums = {0,1,1,1,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,6,6,6,7};
@@ -27,19 +27,13 @@ public class 특정수의갯수 {
         int mid = (strtIdx + endIdx) / 2;
         System.out.println("strtIdx : " + strtIdx);
         System.out.println("endIdx : " + endIdx);
-
+        System.out.println("================================");
         for (int i = strtIdx; i <= mid; i++) {
-            if (nums[i] == n && i <= firstIdx) {
-                firstIdx = i;
-                System.out.println("firstIdx : " + firstIdx);
-            }
+            if (nums[i] == n && i <= firstIdx) firstIdx = i;
         }
 
         for (int i = endIdx; i > mid; i--) {
-            if (nums[i] == n && i >= lastIdx) {
-                lastIdx = i;
-                System.out.println("lastIdx : " + lastIdx);
-            }
+            if (nums[i] == n && i >= lastIdx) lastIdx = i;
         }
 
         // 앞으로 찾을 영역의 최대 값이 n과 같아야 한다. 쓸데 없는 영역 조회 안함
