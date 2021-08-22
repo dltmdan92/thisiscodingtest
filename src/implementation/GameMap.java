@@ -41,28 +41,33 @@ public class GameMap {
         int visitCount = 1;
         int turnCount = 0;
         boolean moveable = true;
+        // 방문 했음
+        map[currentRow][currentCol] = "2";
 
         while (moveable) {
-
+            currentWay = turnLeft(currentWay);
             int movedRow = currentRow + move[currentWay][0];
             int movedCol = currentCol + move[currentWay][1];
 
             if (movedRow < rowCount && movedCol < colCount && map[movedRow][movedCol].equals("0")) {
-                map[currentRow][currentCol] = "2";
                 currentRow = movedRow;
                 currentCol = movedCol;
+                map[currentRow][currentCol] = "2";
                 turnCount = 0;
                 visitCount++;
             } else {
                 if (turnCount < 3) {
-                    currentWay = turnLeft(currentWay);
                     turnCount++;
                 } else {
                     int nRow = currentRow + back[currentWay][0];
                     int nCol = currentCol + back[currentWay][1];
-                    if (map[nRow][nCol].equals("0") || map[nRow][nCol].equals("2")) {
+                    if (!map[nRow][nCol].equals("1")) {
                         currentRow = currentRow + back[currentWay][0];
                         currentCol = currentCol + back[currentWay][1];
+                        if (map[currentRow][currentCol].equals("0")) {
+                            map[currentRow][currentCol] = "2";
+                            visitCount++;
+                        }
                     } else {
                         moveable = false;
                     }
@@ -70,14 +75,8 @@ public class GameMap {
                     turnCount = 0;
                 }
             }
-            System.out.println(visitCount);
-            Arrays.stream(map).forEach(line -> {
-                for (String i : line) {
-                    System.out.print(i);
-                }
-                System.out.println();
-            });
         }
+        System.out.println(visitCount);
     }
 
     private static int turnLeft(int currentWay) {
