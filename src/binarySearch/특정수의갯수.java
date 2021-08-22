@@ -36,10 +36,10 @@ public class 특정수의갯수 {
             if (nums[i] == n && i >= lastIdx) lastIdx = i;
         }
 
-        // 앞으로 찾을 영역의 최대 값이 n과 같아야 한다. 쓸데 없는 영역 조회 안함
+        // 앞으로 찾을 영역의 최대 값이 n과 크거나 같아야 한다. 쓸데 없는 영역 조회 안함
         if (mid > strtIdx && nums[mid] >= n)
             binarySearch(nums, strtIdx, mid);
-        // 앞으로 찾을 영역의 최소 값이 n과 같아야 한다. 쓸데 없는 영역 조회 안함
+        // 앞으로 찾을 영역의 최소 값이 n과 작거나 같아야 한다. 쓸데 없는 영역 조회 안함
         if (endIdx > mid && nums[mid] <= n)
             binarySearch(nums, mid + 1, endIdx);
     }

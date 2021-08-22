@@ -1,6 +1,10 @@
 package sorting;
 
+import java.util.Arrays;
+
 /**
+ * 퀵정렬 : 분할 정복의 가장 대표적인 예제
+ *
  * 기준 데이터를 설정하고, 그 기준보다 큰 데이터와 작은 데이터의 위치를 바꾸는 방법이다.
  * 일반적으로 첫번째 데이터를 기준 데이터 (피벗)으로 설정하고 돌린다.
  *
@@ -21,6 +25,7 @@ public class QuickSort {
     }
 
     private static void quickSort(int[] target, int startIdx, int endIdx) {
+
         if (startIdx >= endIdx) return;
         int pivot = startIdx;
         int left = startIdx + 1;
@@ -39,6 +44,7 @@ public class QuickSort {
             // right : 작은 녀석의 인덱스
             // left : 큰 녀석의 인덱스
             if (left > right) {
+                // 작은 녀석과 피벗의 위치를 서로 스왑
                 int temp = target[pivot];
                 target[pivot] = target[right];
                 target[right] = temp;
@@ -49,6 +55,7 @@ public class QuickSort {
                 target[right] = target[left];
                 target[left] = temp;
             }
+            System.out.println(Arrays.toString(target));
         }
         quickSort(target, startIdx, right - 1);
         quickSort(target, right + 1, endIdx);
