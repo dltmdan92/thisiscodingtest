@@ -1,9 +1,6 @@
 package dfs;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * DFS
@@ -23,42 +20,18 @@ public class First {
 
     public static void main(String[] args) {
         // 각 노드가 연결된 정보를 표현 (2차원 리스트)
-        List<Integer> list0 = new ArrayList<>();
-        graph.add(list0);
 
-        // 1번 노드는 2,3,8 노드와 인접
-        List<Integer> list1 = new ArrayList<>();
-        list1.add(2); list1.add(3); list1.add(8);
-        graph.add(list1);
-        // 2번 노드는 1,7 노드와 인접
-        List<Integer> list2 = new ArrayList<>();
-        list2.add(1); list2.add(7);
-        graph.add(list2);
-        // 3번 노드는 1,4,5 노드와 인접
-        List<Integer> list3 = new ArrayList<>();
-        list3.add(1); list3.add(4); list3.add(5);
-        graph.add(list3);
-        // 4번 노드는 3,5 노드와 인접
-        List<Integer> list4 = new ArrayList<>();
-        list4.add(3); list4.add(5);
-        graph.add(list4);
-        // 5번 노드는 3,4 노드와 인접
-        List<Integer> list5 = new ArrayList<>();
-        list5.add(3); list5.add(4);
-        graph.add(list5);
-        // 6번 노드는 7 노드와 인접
-        List<Integer> list6 = new ArrayList<>();
-        list6.add(7);
-        graph.add(list6);
-        // 7번 노드는 2,6,8 노드와 인접
-        List<Integer> list7 = new ArrayList<>();
-        list7.add(2); list7.add(6); list7.add(8);
-        graph.add(list7);
-        // 8번 노드는 1,7 노드와 인접
-        List<Integer> list8 = new ArrayList<>();
-        list8.add(1); list8.add(7);
-        graph.add(list8);
-
+        graph = List.of(
+                Collections.emptyList(),
+                List.of(2, 3, 8),
+                List.of(1, 7),
+                List.of(1, 4, 5),
+                List.of(3, 5),
+                List.of(3, 4),
+                List.of(7),
+                List.of(2, 6, 8),
+                List.of(1, 7)
+        );
 
         // 정의된 DFS 함수 호출
         dfs(1);
@@ -69,8 +42,7 @@ public class First {
         List<Integer> nodes = graph.get(i);
         System.out.println(nodes);
         System.out.println(i+"방문");
-        for (int j = 0; j < nodes.size(); j++) {
-            int node = nodes.get(j);
+        for (int node : nodes) {
             if (!visited[node]) {
                 dfs(node);
             }
