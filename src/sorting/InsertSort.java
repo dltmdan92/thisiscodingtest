@@ -16,10 +16,8 @@ public class InsertSort {
                 int nowStandardVal = array[i];
                 int currentPositionVal = array[n];
                 if (nowStandardVal < currentPositionVal) {
-                    for (int j = i - 1; j >= n; j--) {
-                        array[j + 1] = array[j];
-                    }
-                    array[n] = nowStandardVal;
+                    swap(array, i, n, nowStandardVal);
+                    break;
                 }
             }
         }
@@ -27,5 +25,12 @@ public class InsertSort {
         for (int element : array) {
             System.out.print(element);
         }
+    }
+
+    private static void swap(int[] array, int i, int n, int nowStandardVal) {
+        for (int j = i - 1; j >= n; j--) {
+            array[j + 1] = array[j];
+        }
+        array[n] = nowStandardVal;
     }
 }
