@@ -14,52 +14,68 @@ import java.util.Arrays;
  * 최악의 경우 O(N^2)의 시간복잡도
  */
 public class QuickSort {
-    private static int[] array = {5,7,9,0,3,1,6,2,4,8};
 
     public static void main(String[] args) {
-        quickSort(array, 0, array.length - 1);
+        int[] array = {5,7,9,0,3,1,6,2,4,8};
 
-        for(int element : array) {
-            System.out.print(element);
-        }
+        quicksort(array, 0, array.length - 1);
+
+        System.out.println(Arrays.toString(array));
     }
 
-    private static void quickSort(int[] target, int startIdx, int endIdx) {
+    private static void quicksort(int[] array, int startIndex, int lastIndex) {
+        System.out.println(Arrays.toString(array));
 
-        if (startIdx >= endIdx) return;
-        int pivot = startIdx;
-        int left = startIdx + 1;
-        int right = endIdx;
-
-        while(left <= right) {
-            // 왼쪽 부터 시작해서 피벗보다 큰 값이 나온 부분에서 끝나고 left 인덱스를 반환
-            while (left <= endIdx && target[left] <= target[pivot]) {
-                left++;
-            }
-            // 오른쪽 부터 시작해서 피벗보다 작은 값이 나온 부분에서 끝나고 right 인덱스를 반환
-            while (right > startIdx && target[right] >= target[pivot]) {
-                right--;
-            }
-            // 큰 녀석이 작은 녀석보다 더 오른쪽에 있을 경우
-            // right : 작은 녀석의 인덱스
-            // left : 큰 녀석의 인덱스
-            if (left > right) {
-                // 작은 녀석과 피벗의 위치를 서로 스왑
-                int temp = target[pivot];
-                target[pivot] = target[right];
-                target[right] = temp;
-            }
-            // 작은 녀석이 큰 녀석보다 오른쪽에 있을 경우
-            else {
-                int temp = target[right];
-                target[right] = target[left];
-                target[left] = temp;
-            }
-            System.out.println(Arrays.toString(target));
+        if (startIndex >= lastIndex) {
+            return;
         }
-        quickSort(target, startIdx, right - 1);
-        quickSort(target, right + 1, endIdx);
-    }
 
+        int pivot = array[startIndex];
+
+        // find larger one from left
+        int left = startIndex + 1;
+
+        // 오름 차순 정렬 버전
+        while (array[left] < pivot && left < lastIndex) {
+            left++;
+        }
+
+        // find smaller one from right
+        int right = lastIndex;
+
+        while (array[right] > pivot && right > startIndex) {
+            right--;
+        }
+
+        /*
+        // 내림 차순 정렬 버전
+        while (array[left] >= pivot && left <= lastIndex) {
+            left++;
+        }
+
+        // find smaller one from right
+        int right = lastIndex;
+
+        while (array[right] < pivot && right >= startIndex) {
+            right--;
+        }
+        */
+
+        int temp = array[right];
+
+        // swap left and right
+        if (left < right) {
+            array[right] = array[left];
+            array[left] = temp;
+            quicksort(array, startIndex, lastIndex);
+        }
+        // swap pivot and right
+        else {
+            array[right] = pivot;
+            array[startIndex] = temp;
+            quicksort(array, startIndex, right - 1);
+            quicksort(array, right + 1, lastIndex);
+        }
+    }
 
 }
