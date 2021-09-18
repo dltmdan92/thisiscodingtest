@@ -9,7 +9,7 @@ public class 떡볶이떡만들기 {
     static int n = 4;
 
     // 요청한 떡의 길이
-    static int m = 5;
+    static int m = 7;
 
     static int result = 0;
 
