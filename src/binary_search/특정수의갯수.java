@@ -1,4 +1,4 @@
-package binarySearch;
+package binary_search;
 
 /**
  * logN의 속도를 낼 것!!
