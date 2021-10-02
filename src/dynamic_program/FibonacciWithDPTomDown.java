@@ -1,9 +1,6 @@
 package dynamic_program;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 1. 최적 부분 구조 충족! (큰 문제를 작은 문제로 나눌 수 있다.) OK
  * 2. 중복되는 부분 문제 충족! (동일한 작은 문제를 반복적으로 해결한다.) OK
@@ -17,7 +14,7 @@ import java.util.List;
  *
  * DP를 사용한 피보나치 수열의 시간복잡도는 O(N) 이다.
  */
-public class FibonacciWithDP {
+public class FibonacciWithDPTomDown {
 
     public static void main(String[] args) {
 
