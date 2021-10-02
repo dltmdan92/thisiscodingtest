@@ -20,66 +20,30 @@ import java.util.List;
 public class FibonacciWithDP {
 
     public static void main(String[] args) {
-        int n = 7;
 
-        // 메모이제이션을 위한 리스트 초기화
-        List<Integer> dpTable = new ArrayList<>(n + 1);
+        // 리스트 초기화
+        long[] memory = new long[100];
 
-        for(int i = 1; i <= n + 1; i++) {
-            dpTable.add(0);
-        }
+        int param = 20;
 
-        int topdownFiboresult = topdownFibo(dpTable, n);
-        System.out.println("topdownFibo : " + topdownFiboresult);
+        long result = fibo(memory, param);
 
-        int bottomupFiboResult = bottomupFibo(dpTable, n);
-        System.out.println("bottomupFibo : " + bottomupFiboResult);
+        System.out.println(result);
     }
 
-    /**
-     * DP 의 탑다운 (하향식) 방식으로 수행
-     * 재귀함수를 주로 사용한다.
-     * @param dpTable
-     * @param n
-     * @return
-     */
-    private static int topdownFibo(List<Integer> dpTable, int n) {
-        if (n == 1 || n == 2) {
+    private static long fibo(long[] memory, int param) {
+        if (param == 1 || param == 2) {
             return 1;
         }
 
-        // 캐싱이 안된 경우
-        if (dpTable.get(n) == 0) {
-            int nowValue = topdownFibo(dpTable, n - 1) + topdownFibo(dpTable,n - 2);
-            // 캐싱 시키고
-            dpTable.set(n, nowValue);
-        }
-        // 캐싱 된 것을 리턴한다.
-        return dpTable.get(n);
-    }
-
-    /**
-     * DP 의 바텀업 (상향식) 방식으로 수행
-     * 반복문을 주로 사용한다.
-     * @param dpTable
-     * @param n
-     * @return
-     */
-    private static int bottomupFibo(List<Integer> dpTable, int n) {
-        // 첫 번째 피보나치 수와 두 번째 피보나치 수는 1
-        dpTable.set(1, 1);
-        dpTable.set(2, 1);
-
-        // 밑에서 부터 쭉 캐싱 작업 한다.
-        for (int i = 3; i <= n; i++) {
-            // 캐싱 안되 있을 때
-            if (dpTable.get(i) == 0) {
-                int nowValue = dpTable.get(i - 1) + dpTable.get(i - 2);
-                dpTable.set(i, nowValue);
-            }
+        // 0이 아니다 => memory에 업데이트된 적이 있다.
+        if (memory[param] != 0) {
+            return memory[param];
         }
 
-        return dpTable.get(n);
+        memory[param] = fibo(memory, param - 1) + fibo(memory, param - 2);
+
+        return memory[param];
     }
 
 }
