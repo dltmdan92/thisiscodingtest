@@ -16,3 +16,11 @@ fun SimpleDijkstraLines() : String {
         5 6 2
     """.trimIndent()
 }
+
+fun MessageParams() : String {
+    // a 노드에서 b 노드로 가는 비용이 c 이다.
+    return """
+        1 2 4
+        1 3 2
+    """.trimIndent()
+}
