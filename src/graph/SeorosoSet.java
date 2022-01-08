@@ -25,8 +25,13 @@ public class SeorosoSet {
         union(2, 4, parents);
         union(5, 6, parents);
 
+        // parent가 미갱신된 node를 위해 전체적으로 한번 더 돌려준다.
+        for (int i = 1; i < parents.length; i++) {
+            findRoot(i, parents);
+        }
+
         for (int i = 1, parentsLength = parents.length; i < parentsLength; i++) {
-            System.out.println(i + " : " + findRoot(i, parents));
+            System.out.println(i + " : " + parents[i]);
         }
 
     }
@@ -44,11 +49,10 @@ public class SeorosoSet {
     }
 
     private static int findRoot(int i, int[] parents) {
-        int parent = parents[i];
-        if (parent == i) {
-            return parent;
+        if (parents[i] != i) {
+            parents[i] = findRoot(parents[i], parents);
         }
-        return findRoot(parent, parents);
+        return parents[i];
     }
 
 

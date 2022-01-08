@@ -1,8 +1,7 @@
 package graph;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.PriorityQueue;
 
 public class Cruskal {
@@ -21,7 +20,6 @@ public class Cruskal {
         String[] split = input.split("\n");
         String[] split1 = split[0].split(" ");
         int nodeCount = Integer.parseInt(split1[0]);
-        int lineCount = Integer.parseInt(split1[1]);
 
         int[] parent = new int[nodeCount + 1];
 
@@ -41,35 +39,43 @@ public class Cruskal {
             lines.add(new Line(start, destination, cost));
         }
 
-        while(!lines.isEmpty()) {
-            Line poll = lines.poll();
+        while (!lines.isEmpty()) {
+            Line line = lines.poll();
 
-            int parent1 = findParent(parent, poll.getStart());
-            int parent2 = findParent(parent, poll.getDestination());
-
-            if (parent1 != parent2) {
-                unionParent(parent, parent1, parent2);
-                result += poll.getCost();
-            }
+            result += union(line, parent);
         }
 
         System.out.println(result);
+
     }
 
-    private static int findParent(int[] parent, int x) {
-        if (parent[x] != x)
-            parent[x] = findParent(parent, parent[x]);
-        return parent[x];
+    public static int union(Line line, int[] parents) {
+        int i = parents[line.getStart()];
+        int j = parents[line.getDestination()];
+
+        if (i == j)
+            return 0;
+
+        int rootOjI = findParent(i, parents);
+        int rootOjJ = findParent(j, parents);
+
+        if (rootOjI > rootOjJ) {
+            parents[rootOjI] = rootOjJ;
+        }
+        else {
+            parents[rootOjJ] = rootOjI;
+        }
+
+        return line.getCost();
     }
 
-    private static void unionParent(int[] parent, int a, int b) {
-        int startParent = findParent(parent, a);
-        int destinationParent = findParent(parent, b);
-        if (startParent < destinationParent)
-            parent[destinationParent] = startParent;
-        else
-            parent[startParent] = destinationParent;
+    private static int findParent(int i, int[] parents) {
+        if (parents[i] != i) {
+            parents[i] = findParent(parents[i], parents);
+        }
+        return parents[i];
     }
+
 }
 
 class Line {
