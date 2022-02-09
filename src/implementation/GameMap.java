@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class GameMap {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("D:\\work\\workspace\\IdeaProjects\\thisiscodingtest\\src\\implementation\\GameMapArgs.txt"));
+        BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("/Users/seungmoo.lee/IdeaProjects/thisiscodingtest/src/implementation/GameMapArgs.txt"));
 
         String mapInfo = bufferedReader.readLine();
         String[] mapInfos = mapInfo.split(" ");
