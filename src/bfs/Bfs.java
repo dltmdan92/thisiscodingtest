@@ -25,18 +25,17 @@ public class Bfs {
 
         Queue<Integer> queue = new LinkedList<>();
         queue.add(startNode);
-        System.out.println(startNode);
         visited[startNode] = true;
 
         while (!queue.isEmpty()) {
             Integer node = queue.poll();
+            System.out.println(node);
 
             List<Integer> adjacentNodes = graph.get(node);
 
             for (int adjacentNode : adjacentNodes) {
                 if (!visited[adjacentNode]) {
                     queue.add(adjacentNode);
-                    System.out.println(adjacentNode);
                     visited[adjacentNode] = true;
                 }
             }
