@@ -32,10 +32,10 @@ public class SeorosoSetV2 {
             System.out.println("node1 : " + node1 + ", node2 : " + node2 + ", root1 : " + rootOfNode1 + ", root2 : " + rootOfNode2);
 
             if (rootOfNode1 < rootOfNode2) {
-                set[node2] = rootOfNode1;
+                set[rootOfNode2] = rootOfNode1;
             }
             else {
-                set[node1] = rootOfNode2;
+                set[rootOfNode1] = rootOfNode2;
             }
         }
 

@@ -28,10 +28,10 @@ public class CycleCheck {
             int rootOfNode2 = getRoot(node2, roots);
 
             if (rootOfNode1 < rootOfNode2) {
-                roots[node2] = rootOfNode1;
+                roots[rootOfNode2] = rootOfNode1;
             }
             else if (rootOfNode1 > rootOfNode2) {
-                roots[node1] = rootOfNode2;
+                roots[rootOfNode1] = rootOfNode2;
             }
             else {
                 System.out.println("사이클이 발생했습니다.");
