@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
 public class DivideCity {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = Files.newBufferedReader(Path.of("/Users/seungmoo.lee/IdeaProjects/thisiscodingtest/src/cruskal/divide_city.txt"));
+        BufferedReader bufferedReader = Files.newBufferedReader(Path.of("src/cruskal/divide_city.txt"));
 
         String firstReadLine = bufferedReader.readLine();
         String[] firstLine = firstReadLine.split(" ");
