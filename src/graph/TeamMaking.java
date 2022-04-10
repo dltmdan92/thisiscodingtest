@@ -11,7 +11,7 @@ import java.util.Objects;
 public class TeamMaking {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = Files.newBufferedReader(Path.of("/Users/seungmoo.lee/IdeaProjects/thisiscodingtest/src/graph/team_making_param.txt"));
+        BufferedReader bufferedReader = Files.newBufferedReader(Path.of("src/graph/team_making_param.txt"));
 
         String[] firstLine = bufferedReader.readLine().split(" ");
         int maxNumber = Integer.parseInt(firstLine[0]);
