@@ -29,14 +29,10 @@ public class PeekBall {
 
         int total = 0;
 
-        for (int i = 1; i < ballAggr.length; i++) {
-
-            int leftBallCount = ballAggr[i];
-
-            numOfBalls-=leftBallCount;
-
-            total += leftBallCount * numOfBalls;
-
+        for (int currentBall = 1; currentBall < ballAggr.length; currentBall++) {
+            int currentBallCount = ballAggr[currentBall];
+            numOfBalls-=currentBallCount;
+            total += numOfBalls * currentBallCount;
         }
 
         System.out.println(total);
