@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class RuleOfBigNumberV2 {
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = Files.newBufferedReader(Path.of("/Users/seungmoo.lee/IdeaProjects/thisiscodingtest/src/greedy/rule_of_big_number_param.txt"));
+        BufferedReader bufferedReader = Files.newBufferedReader(Path.of("C:\\Users\\user\\IdeaProjects\\thisiscodingtest\\src\\greedy\\rule_of_big_number_param.txt"));
 
         String[] firstLine = bufferedReader.readLine().split(" ");
         int numCount = Integer.parseInt(firstLine[0]);

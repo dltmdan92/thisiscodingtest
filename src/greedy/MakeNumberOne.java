@@ -20,13 +20,14 @@ public class MakeNumberOne {
         int k = 5;
         int cnt = 0;
 
-        while(n != 1) {
-            if (n % k == 0) {
-                n = n / k;
-            }
-            else {
-                n = n - 1;
-            }
+        int mod = n % k;
+        cnt+=mod;
+
+        int div = n - mod;
+
+        while (div > 1) {
+            div = div / k;
+            System.out.println("div : " + div);
             cnt++;
         }
 
