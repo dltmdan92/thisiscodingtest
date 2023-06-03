@@ -57,13 +57,16 @@ cmake-build-*/
 *.iws
 
 # IntelliJ
-out/
+out
+out/production
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
 # JIRA plugin
 atlassian-ide-plugin.xml
+
+.idea
 
 # Cursive Clojure plugin
 .idea/replstate.xml
@@ -134,5 +137,7 @@ fabric.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+thisiscodingtest.iml
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij

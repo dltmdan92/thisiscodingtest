@@ -1,54 +1,77 @@
 package implementation;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class UpDownLeftRight {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = Files.newBufferedReader(Path.of("/Users/seungmoo.lee/IdeaProjects/thisiscodingtest/src/implementation/up_down_left_right_param.txt"));
+        String param = """
+                5
+                R R R U D D
+                """;
 
-        int n = Integer.parseInt(bufferedReader.readLine());
+        List<String> lines = param.lines().toList();
+        int N = Integer.parseInt(lines.get(0));
+        String[] LRUDs = lines.get(1).split(" ");
 
-        String line = bufferedReader.readLine();
-        String[] operations = line.split(" ");
+        Map<String, Node> moveMap = Map.of(
+                "L", Node.of(0, -1),
+                "R", Node.of(0, 1),
+                "U", Node.of(-1, 0),
+                "D", Node.of(1, 0)
+        );
 
-        int currentRow = 1;
-        int currentCol = 1;
+        Node currentNode = Node.of(0, 0);
 
-        for (String operation : operations) {
-            int rowMove = 0;
-            int colMove = 0;
+        for (String LRUD : LRUDs) {
+            currentNode.move(moveMap.get(LRUD), N);
+        }
 
-            switch (operation) {
-                case "L":
-                    colMove = -1;
-                    break;
-                case "R":
-                    colMove = 1;
-                    break;
-                case "U":
-                    rowMove = -1;
-                    break;
-                case "D":
-                    rowMove = 1;
-                    break;
-                default:
-                    break;
-            }
+        System.out.println(currentNode);
+    }
 
-            int rowToMove = currentRow + rowMove;
-            int colToMove = currentCol + colMove;
+    public static class Node {
+        private int row;
+        private int col;
 
-            if ((rowToMove >= 1 && rowToMove <= n) && (colToMove >= 1 && colToMove <= n)) {
-                currentRow = rowToMove;
-                currentCol = colToMove;
+        public Node(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+
+        public static Node of(int row, int col) {
+            return new Node(row, col);
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int getCol() {
+            return col;
+        }
+
+        public void move(Node move, int N) {
+            if (isMovable(move, N)) {
+                this.row += move.getRow();
+                this.col += move.getCol();
             }
         }
 
-        System.out.println(currentRow + " " + currentCol);
+        private boolean isMovable(Node move, int N) {
+            int newRow = this.row + move.getRow();
+            int newCol = this.col + move.getCol();
+
+            return newRow >= 0 && newRow <= N - 1 && newCol >= 0 && newCol <= N - 1;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%d %d", this.row+1, this.col+1);
+        }
     }
 
 }
