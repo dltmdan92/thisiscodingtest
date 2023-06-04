@@ -3,40 +3,35 @@ package implementation;
 public class KnightOfKingdom {
     public static void main(String[] args) {
 
-        String param = "d5";
-        char[] chars = param.toCharArray();
+        String param = "a1";
 
-        int startCol = chars[0];
-        int startRow = chars[1] - 48;
+        char[] startRowAndColPoint = param.toCharArray();
 
-        int firstCol = 'a';
-        int lastCol = firstCol + 7;
-        int firstRow = 1;
-        int lastRow = firstRow + 7;
+        char startColPointChar = startRowAndColPoint[0];
+        char startRowPointChar = startRowAndColPoint[1];
 
-        // col, row
-        int[][] steps = {{-2, -1}, {-2, 1}, {2, -1}, {2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}};
+        int startColPoint = startColPointChar - 'a';
+        int startRowPoint = startRowPointChar - '1';
+
+        System.out.printf("startColPoint : %d, startRowPoint : %d\n", startColPoint, startRowPoint);
+
+        int[] moveRows = {1, -1, 1, -1, 2, -2, 2, -2};
+        int[] moveCols = {2, 2, -2, -2, 1, 1, -1, -1};
 
         int count = 0;
 
-        for (int[] step : steps) {
-            int colToMove = step[0];
-            int rowToMove = step[1];
+        for (int i = 0; i < moveRows.length; i++) {
+            int moveRow = moveRows[i];
+            int moveCol = moveCols[i];
 
-            int resultCol = startCol + colToMove;
-            int resultRow = startRow + rowToMove;
+            int movedRow = startRowPoint + moveRow;
+            int movedCol = startColPoint + moveCol;
 
-            if (isColOk(resultCol, firstCol, lastCol) && isRowOk(resultRow, firstRow, lastRow)) count++;
+            if (movedRow >= 0 && movedRow <= 7 && movedCol >= 0 && movedCol <= 7) {
+                count++;
+            }
         }
 
         System.out.println(count);
-    }
-
-    private static boolean isColOk(int resultCol, int firstCol, int lastCol) {
-        return ((resultCol >= firstCol && resultCol <= lastCol));
-    }
-
-    private static boolean isRowOk(int resultRow, int firstRow, int lastRow) {
-        return ((resultRow >= firstRow && resultRow <= lastRow));
     }
 }
