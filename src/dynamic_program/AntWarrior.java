@@ -3,26 +3,24 @@ package dynamic_program;
 public class AntWarrior {
 
     public static void main(String[] args) {
-        int numOfWarehouse = 8;
-        int[] warehouse = {0, 1, 3, 1, 5, 9, 4, 7, 6};
+        int[] param = {1,3,1,5};
 
-        int index = 3;
-        int[] memory = new int[numOfWarehouse + 1];
-        memory[1] = warehouse[1];
-        memory[2] = warehouse[2];
+        int[] a = new int[param.length];
 
-        while (index <= numOfWarehouse) {
-            // memory[index - 1] vs memory[index - 2] + now
+        a[0] = param[0];
+        a[1] = Math.max(a[0], param[1]);
+        a[2] = Math.max(a[0] + param[2], a[1]);
 
-            int beforeOne = memory[index - 1];
-            int beforeTwoPlusNow = memory[index - 2] + warehouse[index];
-
-            memory[index] = Math.max(beforeOne, beforeTwoPlusNow);
-
-            index++;
+        if (param.length == 3) {
+            System.out.println(a[2]);
+            return;
         }
 
-        System.out.println(memory[numOfWarehouse]);
+        for (int i = 3; i < param.length; i++) {
+            a[i] = Math.max(a[i - 2] + param[i], a[i - 1]);
+        }
+
+        System.out.println(a[param.length - 1]);
     }
 
 }
