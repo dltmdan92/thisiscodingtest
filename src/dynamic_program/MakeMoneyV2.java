@@ -1,48 +1,65 @@
 package dynamic_program;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MakeMoneyV2 {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        BufferedReader bufferedReader = Files.newBufferedReader(Path.of("/Users/seungmoo.lee/IdeaProjects/thisiscodingtest/src/dynamic_program/MakeMoneyV2.txt"));
-        int[] array = Arrays.stream(bufferedReader.readLine().split(" ")).peek(val -> System.out.println(val)).mapToInt(Integer::valueOf).toArray();
-        int coinCount = array[0];
-        int objective = array[1];
+        String param = """
+                3 7
+                2
+                3
+                5
+                """;
 
-        int[] results = new int[objective + 1];
-        Arrays.fill(results, 10_001);
+        List<String> lines = param.lines().collect(Collectors.toList());
 
-        int[] coins = new int[coinCount];
-        for (int i = 0; i < coins.length; i++) {
-            coins[i] = Integer.parseInt(bufferedReader.readLine());
+        int[] firstLine = Arrays.stream(lines.get(0).split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        int n = firstLine[0];
+        int m = firstLine[1];
+
+        List<Integer> coins = new ArrayList<>(n);
+        int[] dp = new int[10001];
+
+        for (int i = 1; i < 1 + n; i++) {
+            coins.add(Integer.parseInt(lines.get(i)));
+            dp[Integer.parseInt(lines.get(i))] = 1;
         }
-        Arrays.sort(coins);
 
-        for (int coin : coins) {
-            for (int j = 1; j < results.length; j++) {
-                if (j % coin == 0) {
-                    results[j] = Math.min(results[j], j / coin);
+        Integer firstCoin = coins.get(0);
+
+        for (int i = firstCoin; i <= m; i++) {
+            if (dp[i] != 0) {
+                continue;
+            }
+
+            int minResult = Integer.MAX_VALUE;
+
+            for (Integer coin : coins) {
+                if (i - coin > 0 && dp[i - coin] != 0) {
+                    minResult = Math.min(minResult, dp[i - coin] + 1);
                 }
             }
-        }
 
-        for (int i = coins[0]; i < results.length - coins[coinCount - 1]; i++) {
-
-            for (int coin : coins) {
-                results[i + coin] = Math.min(results[i + coin], results[i] + 1);
+            if (minResult != Integer.MAX_VALUE) {
+                dp[i] = minResult;
+            } else {
+                dp[i] = -1;
             }
-
         }
 
-        System.out.println(Arrays.toString(results));
-        System.out.println((results[objective] == 10001) ? -1 : results[objective]);
-
+        if (dp[m] != 0) {
+            System.out.println(dp[m]);
+        } else {
+            System.out.println(-1);
+        }
     }
 
 }
