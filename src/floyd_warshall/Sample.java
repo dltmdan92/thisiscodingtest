@@ -47,9 +47,6 @@ public class Sample {
             map[start][end] = distance;
         }
 
-        for (int[] mapp : map) {
-            System.out.println(Arrays.toString(mapp));
-        }
 
         for (int i = 1; i <= nodeCount; i++) {
             for (int a = 1; a <= nodeCount; a++) {
