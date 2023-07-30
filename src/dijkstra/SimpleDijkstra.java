@@ -1,83 +1,79 @@
 package dijkstra;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SimpleDijkstra {
 
-    private static final int INF = Integer.MAX_VALUE;
-
     public static void main(String[] args) {
-        int nodeCount = 6;
-        int lineCount = 11;
-        int start = 1;
-        List<List<Node>> list = new ArrayList<>(nodeCount + 1);
-        for (int i = 0; i < nodeCount + 1; i++) {
-            list.add(i, new ArrayList<>());
+        String param = """
+                6 11
+                1
+                1 2 2
+                1 3 5
+                1 4 1
+                2 3 3
+                2 4 2
+                3 2 3
+                3 6 5
+                4 3 3
+                4 5 1
+                5 3 1
+                5 6 2
+                """;
+
+        List<String> lines = param.lines().collect(Collectors.toList());
+
+        int[] firstLine = Arrays.stream(lines.get(0).split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        int startNode = Integer.parseInt(lines.get(1));
+
+        int[][] edges = new int[firstLine[1]][3];
+
+        for (int i = 2; i < lines.size(); i++) {
+            int[] line = Arrays.stream(lines.get(i).split(" "))
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+
+            edges[i - 2] = line;
         }
-        boolean[] visited = new boolean[nodeCount + 1];
-        int[] distances = new int[nodeCount + 1];
-        Arrays.fill(distances, INF);
 
-        String lineString = ParamsKt.SimpleDijkstraLines();
-        String[] linesString = lineString.split("\n");
+        int[] dp = new int[firstLine[0] + 1];
 
-        Arrays.stream(linesString)
-                .forEach(line -> {
-                    String[] strings = line.split(" ");
-                    int aNode = Integer.parseInt(strings[0]);
-                    int bNode = Integer.parseInt(strings[1]);
-                    int cost = Integer.parseInt(strings[2]);
-
-                    list.get(aNode).add(new Node(bNode, cost));
-                });
-
-        dijkstra(start, visited, distances, list);
-
-        for (int i = 1; i < nodeCount + 1; i++) {
-            if (distances[i] == INF) {
-                System.out.println("INFINITY");
-            }
-            else {
-                System.out.println(distances[i]);
+        for (int i = 1; i < dp.length; i++) {
+            if (i != startNode) {
+                dp[i] = Integer.MAX_VALUE;
             }
         }
+
+        for (int[] edge : edges) {
+            int start = edge[0];
+            int end = edge[1];
+            int distance = edge[2];
+
+            int oneToStart = dp[start];
+
+            int oneToEndDistance = oneToStart + distance;
+            dp[end] = Math.min(oneToEndDistance, dp[end]);
+        }
+
+        for (int i = 1; i < dp.length; i++) {
+            int d = dp[i];
+            System.out.println(d);
+        }
+
     }
 
-    private static void dijkstra(int start, boolean[] visited, int[] distances, List<List<Node>> list) {
-        distances[start] = 0;
-        visited[start] = true;
+    public static class Node {
+        private final int target;
+        private final int distance;
 
-        for (Node node:list.get(start)) {
-            distances[node.getTarget()] = node.getCost();
+        public Node(int target, int distance) {
+            this.target = target;
+            this.distance = distance;
         }
-
-        for (int i = 0; i < distances.length; i++) {
-            int now = getSmallestNode(visited, distances);
-            visited[now] = true;
-
-            for (Node node:list.get(now)) {
-                int cost = distances[now] + node.getCost();
-                if (cost < distances[node.getTarget()]) {
-                    distances[node.getTarget()] = cost;
-                }
-            }
-        }
-    }
-
-    private static int getSmallestNode(boolean[] visited, int[] distances) {
-        int minValue = INF;
-        int index = 0;
-
-        for (int i = 1; i < distances.length; i++) {
-            if (distances[i] < minValue && !visited[i]) {
-                minValue = distances[i];
-                index = i;
-            }
-        }
-
-        return index;
     }
 
 }
